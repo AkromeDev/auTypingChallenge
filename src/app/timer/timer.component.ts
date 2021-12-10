@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-timer',
@@ -13,7 +13,6 @@ export class TimerComponent implements OnDestroy {
   startText = 'Start';
 
   startTimer() {
-    console.log("start-timer: " + this.counter);
     this.running = !this.running;
     if (this.running) {
       this.startText = 'Stop';
@@ -27,6 +26,10 @@ export class TimerComponent implements OnDestroy {
       clearInterval(this.timerRef);
       console.log(this.counter);
     }
+  }
+
+  stopTimer() {
+    
   }
 
   clearTimer() {
