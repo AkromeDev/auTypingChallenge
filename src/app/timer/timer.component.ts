@@ -6,22 +6,26 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnDestroy {
-  counter: number = 0;
-  timerRef: number = 0;
+  counter!: number;
+  timerRef: any;
   running: boolean = false;
+  success = true;
   startText = 'Start';
 
   startTimer() {
+    console.log("start-timer: " + this.counter);
     this.running = !this.running;
     if (this.running) {
       this.startText = 'Stop';
       const startTime = Date.now() - (this.counter || 0);
+      console.log(this.counter);
       this.timerRef = setInterval(() => {
         this.counter = Date.now() - startTime;
       });
     } else {
       this.startText = 'Resume';
       clearInterval(this.timerRef);
+      console.log(this.counter);
     }
   }
 
@@ -30,6 +34,7 @@ export class TimerComponent implements OnDestroy {
     this.startText = 'Start';
     this.counter = 0;
     clearInterval(this.timerRef);
+    console.log("clearTimer: " + this.counter);
   }
 
   ngOnDestroy() {
