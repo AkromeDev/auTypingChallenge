@@ -8,20 +8,30 @@ import { TimerComponent } from '../timer/timer.component';
 })
 export class CardComponent implements OnInit {
   happyTrees = require('bob-ross-lipsum');
-  randomText = this.happyTrees();
+  randomText = '';
+  userText = '';
   result = 'blablaResult';
-
+  
   constructor() { }
-
-  @ViewChild(TimerComponent) child: any;
-
+  
+  @ViewChild(TimerComponent) child!: TimerComponent;
+  
   startingTimer() {
     if (this.child.running === false) {
       this.child.startTimer();
     }
   }
-
-  ngOnInit(): void {
+  
+  onInput(input: string) {
+    this.userText = input;
   }
 
+  newChallenge() {
+    this.randomText = this.happyTrees();
+  }
+  
+  ngOnInit(): void {
+    this.randomText = this.happyTrees();
+  }
+  
 }
