@@ -17,19 +17,17 @@ export class TimerComponent implements OnDestroy {
     if (this.running) {
       this.startText = 'Stop';
       const startTime = Date.now() - (this.counter || 0);
-      console.log(this.counter);
       this.timerRef = setInterval(() => {
         this.counter = Date.now() - startTime;
       });
     } else {
       this.startText = 'Resume';
       clearInterval(this.timerRef);
-      console.log(this.counter);
     }
   }
 
   stopTimer() {
-    
+
   }
 
   clearTimer() {
@@ -37,11 +35,9 @@ export class TimerComponent implements OnDestroy {
     this.startText = 'Start';
     this.counter = 0;
     clearInterval(this.timerRef);
-    console.log("clearTimer: " + this.counter);
   }
 
   ngOnDestroy() {
     clearInterval(this.timerRef);
   }
-
 }
