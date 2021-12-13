@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postbuild": "gulp compress"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,9 @@
     "@angular/router": "~12.2.0",
     "@tailwindcss/typography": "^0.4.1",
     "bob-ross-lipsum": "^1.1.1",
+    "gulp": "^4.0.2",
+    "gulp-gzip": "^1.4.2",
+    "gzip-all": "^1.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
