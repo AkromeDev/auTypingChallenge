@@ -1,23 +1,24 @@
-import { Component, OnInit, ViewChild, Directive } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { TimerComponent } from '../timer/timer.component';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
+  template: '<span [innerHTML]=""></span>',
+  encapsulation: ViewEncapsulation.None,
 })
 export class CardComponent implements OnInit {
   happyTrees = require('bob-ross-lipsum');
   randomText = '';
+  renderedText= '';
   userText = '';
   successMatch = false;
   successMatchInTime = false;
-  renderedText= '';
   
   constructor() { }
   
   @ViewChild(TimerComponent) child!: TimerComponent;
-  // timeNeeded = this.child.counter;
 
   startingTimer() {
     if (this.child.running === false) {
@@ -25,30 +26,40 @@ export class CardComponent implements OnInit {
     }
   }
   onInput(input: string) {
-    this.renderedText = input;
+    this.userText = input;
     this.compareSentences();
-    if (this.userText === this.randomText) {
-      this.successMatch = true;
+    if (this.userText === this.randomText && this.child.counter > 1000) {
       this.child.startTimer();
+      this.successMatch = true;
+    } else if (this.userText === this.randomText && this.child.counter < 1000) {
+      this.child.startTimer();
+      this.successMatchInTime = true;
     }
   }
   compareSentences() {
+    let beforeSanText = '';
     for (let i = 0; i < this.randomText.length; i++) {
-      if (this.userText.substring(i) === null) {
-        this.renderedText += "<span style='background-color:powderblue;'>" + this.randomText.substring(i) + "<span>"
-      } else if (this.userText.substring(i) === this.randomText.substring(i)) {
-        this.renderedText += "<span style='background-color:powderblue;'>" + this.randomText.substring(i) + "<span>"
+      if (this.userText.length < i) {
+        beforeSanText += "<span class='black'>" + this.randomText.charAt(i) + "</span>"
+        console.log(this.userText.charAt(i));
+      } else if (this.userText.charAt(i) === this.randomText.charAt(i)) {
+        beforeSanText += "<span class='green'>" + this.randomText.charAt(i) + "</span>"
       } else {
-        this.renderedText += "<span style='background-color:powderblue;'>" + this.randomText.substring(i) + "<span>"
+        beforeSanText += "<span class='red'>" + this.randomText.charAt(i) + "</span>"
       }
+      this.renderedText = beforeSanText;
     }
   }
   newChallenge() {
-    this.renderedText = this.happyTrees();
+    this.randomText = this.happyTrees();
+    this.renderedText = this.randomText;
     this.child.clearTimer();
     this.successMatch = false;
+    this.successMatchInTime = false;
+    this.userText = '';
   }
   ngOnInit(): void {
     this.renderedText = this.happyTrees();
+    this.randomText = this.renderedText;
   }
 }
