@@ -28,10 +28,10 @@ export class CardComponent implements OnInit {
   onInput(input: string) {
     this.userText = input;
     this.compareSentences();
-    if (this.userText === this.randomText && this.child.counter > 1000) {
+    if (this.userText === this.randomText && this.child.counter > 2500) {
       this.child.startTimer();
       this.successMatch = true;
-    } else if (this.userText === this.randomText && this.child.counter < 1000) {
+    } else if (this.userText === this.randomText && this.child.counter < 2500) {
       this.child.startTimer();
       this.successMatchInTime = true;
     }

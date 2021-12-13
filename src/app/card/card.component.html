@@ -2,17 +2,18 @@
 	<div *ngIf="!successMatchInTime" class="lg:w-2/5 md:w-1/2 w-2/3">
 		<div class="mt-5 bg-white p-10 rounded-lg shadow-lg min-w-full">
 			<h1 class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">Typing Challenge</h1>
+			<p class="text-center text-sm mb-6 text-gray-500 italic font-sans">Write the sentence below in less than 2500ms</p>
 			<app-timer>
 			</app-timer>
 			<div>
 				<span class="text-gray-800 font-semibold block my-3 text-center" [innerHTML]="renderedText"></span>
 				<input class="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none" 
 				type="text" (keydown)="startingTimer()" 
-				#myInput (input)="onInput(myInput.value)" placeholder="Be ready to type fast"/>
+				#myInput (input)="onInput(myInput.value)" placeholder="Type here"/>
 			</div>
 			<button type="submit" 
 					class="w-full mt-6 bg-indigo-600 rounded-lg px-4 py-2 text-lg text-white tracking-wide font-semibold font-sans" 
-					(click)="newChallenge()">New Challenge</button>
+					(click)="newChallenge(); this.myInput.value=''">New Challenge</button>
 			<h2 *ngIf="randomText === userText" class="text-center text-2xl mt-6 text-gray-600 font-bold font-sans">Success..! but too late 😘</h2>
 		</div>
 	</div>

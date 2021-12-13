@@ -6,7 +6,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnDestroy {
-  counter!: number;
+  counter = 0;
   timerRef: any;
   running: boolean = false;
   success = true;
@@ -24,10 +24,6 @@ export class TimerComponent implements OnDestroy {
       this.startText = 'Resume';
       clearInterval(this.timerRef);
     }
-  }
-
-  stopTimer() {
-
   }
 
   clearTimer() {
